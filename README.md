@@ -1,3 +1,6 @@
+
+<img src="https://github.com/sr2echa/ThottaThukiduven/assets/65058816/10a113af-ca11-46fb-af95-c1175f774c80" width = "256px">
+
 # ThottaThukiduven
 Your ultimate tool for Getting AI response, unblock Copy/Paste and keep the window always active. Yk where you can use...
 
