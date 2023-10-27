@@ -1,0 +1,28 @@
+{
+    "manifest_version": 3,
+    "author": "Sreecharan S. (sr2echa)",
+    "name": "ThottaThukiduven",
+    "version": "1.1",
+    "description": "Your ultimate tool for Getting AI response, unblock Copy/Paste and keep the window always active. Yk where you can use...",
+    "background": {
+      "service_worker": "background.js"
+    },
+    "host_permissions": [
+      "*://*/*"
+    ],
+    "permissions": ["contextMenus", "clipboardWrite", "clipboardRead", "storage", "tabs", "activeTab", "scripting"],
+    "action": {
+      "default_icon": {
+        "128": "icons/off.png"
+      }
+    },
+    "icons": {
+      "128": "icons/logo.png"
+    },
+    "content_scripts": [
+      {
+        "matches": ["<all_urls>"],
+        "js": ["data/inject/isolated.js", "data/inject/content.js", "data/inject/main.js"]
+      }
+    ]
+}
