@@ -41,10 +41,8 @@ jobs:
       env:
         PRIVATE_KEY_PEM: ${{ secrets.PRIVATE_KEY_PEM }}
 
-    - name: Extract extension ID from CRX
-      run: |
-        EXTENSION_ID=$(npx crx id .github/releases/ThottaThukiduven.crx)
-        echo "EXTENSION_ID=$EXTENSION_ID" >> $GITHUB_ENV
+    - name: Set extension ID
+      run: echo "EXTENSION_ID=fjnahbdbhadgjoaifljodmdchebphmbf" >> $GITHUB_ENV
 
     - name: Generate updates.xml
       run: |
