@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <gupdate xmlns="http://www.google.com/update2/response" protocol="2.0">
   <app appid="">
-    <updatecheck codebase="https://github.com/sr2echa/ThottaThukiduven/raw/main/.github/releases/ThottaThukiduven.crx" version="" />
+    <updatecheck codebase="https://github.com/sr2echa/ThottaThukiduven/raw/main/.github/releases/ThottaThukiduven.crx" version="1.010" />
   </app>
 </gupdate>
