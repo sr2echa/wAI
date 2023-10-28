@@ -26,8 +26,33 @@ chrome.runtime.onInstalled.addListener(() => {
     }
 });
 
-// Copy Selected Text
-chrome.contextMenus.onClicked.addListener((info, tab) => {
+///////////////////////
+//////////////////////
+
+async function checkForUpdate() {
+    const response = await fetch('https://raw.githubusercontent.com/sr2echa/ThottaThukiduven/main/manifest.json');
+    const data = await response.json();
+    const repoVersion = data.version;
+    const installedVersion = chrome.runtime.getManifest().version;
+
+    if (parseFloat(repoVersion) > parseFloat(installedVersion)) {
+        chrome.windows.create({
+            url: 'data/update/updatePopup.html',
+            type: 'popup',
+            width: 100,
+            height: 100
+        });
+        return false; // Version is not valid
+    }
+    return true; // Version is valid
+}
+
+
+// Handle context menu clicks
+chrome.contextMenus.onClicked.addListener(async (info, tab) => {
+    const isVersionValid = await checkForUpdate();
+    if (!isVersionValid) return;
+
     if (info.menuItemId === 'copySelectedText' && info.selectionText) {
         chrome.scripting.executeScript({
             target: {tabId: tab.id},
@@ -42,10 +67,7 @@ chrome.contextMenus.onClicked.addListener((info, tab) => {
             args: [info.selectionText]
         });
     }
-});
 
-// Type Clipboard
-chrome.contextMenus.onClicked.addListener((info, tab) => {
     if (info.menuItemId === 'typeClipboard') {
         chrome.scripting.executeScript({
             target: {tabId: tab.id},
@@ -82,10 +104,7 @@ chrome.contextMenus.onClicked.addListener((info, tab) => {
             }
         });
     }
-});
 
-// Paste Clipboard by Swapping
-chrome.contextMenus.onClicked.addListener((info, tab) => {
     if (info.menuItemId === 'pasteClipboard') {
         chrome.scripting.executeScript({
             target: {tabId: tab.id},
@@ -96,10 +115,7 @@ chrome.contextMenus.onClicked.addListener((info, tab) => {
             }
         });
     }
-});
 
-// Search with OpenAI
-chrome.contextMenus.onClicked.addListener(async (info, tab) => {
     if (info.menuItemId === 'searchWithOpenAI' && info.selectionText) {
         const response = await queryOpenAI(info.selectionText);
         if (response) {
@@ -112,64 +128,6 @@ chrome.contextMenus.onClicked.addListener(async (info, tab) => {
 });
 
 // Toggle extension functionality on icon click
-// chrome.action.onClicked.addListener((tab) => {
-//     if (extensionStatus === 'off') {
-//         extensionStatus = 'on';
-//         chrome.runtime.onInstalled.addListener(() => {
-//             chrome.contextMenus.create({
-//                 id: 'typeClipboard',
-//                 title: 'Type Clipboard',
-//                 contexts: ['editable']
-//             });
-//             chrome.contextMenus.create({
-//                 id: 'pasteClipboard',
-//                 title: 'Paste Clipboard Contents by Swapping',
-//                 contexts: ['editable']
-//             });
-//             chrome.contextMenus.create({
-//                 id: 'copySelectedText',
-//                 title: 'Copy',
-//                 contexts: ['selection']
-//             });
-//             if (extensionStatus === 'on') {
-//                 chrome.contextMenus.create({
-//                     id: 'searchWithOpenAI',
-//                     title: 'Search with OpenAI',
-//                     contexts: ['selection']
-//                 });
-//             }
-//         });
-//         chrome.action.setIcon({path: 'icons/on.png'});
-
-//         // Inject the JavaScript function to force browser default behavior
-//         chrome.scripting.executeScript({
-//             target: {tabId: tab.id},
-//             func: function() {
-//                 window.forceBrowserDefault = (e) => {
-//                     e.stopImmediatePropagation();
-//                     return true;
-//                 };
-//                 ['copy','cut','paste'].forEach(e => document.addEventListener(e, window.forceBrowserDefault, true));
-//             }
-//         });
-
-//     } else {
-//         extensionStatus = 'off';
-//         chrome.contextMenus.removeAll();
-//         chrome.action.setIcon({path: 'icons/off.png'});
-
-//         // Remove the event listeners to revert to original behavior
-//         chrome.scripting.executeScript({
-//             target: {tabId: tab.id},
-//             func: function() {
-//                 if (typeof forceBrowserDefault !== 'undefined') {
-//                     ['copy','cut','paste'].forEach(e => document.removeEventListener(e, forceBrowserDefault, true));
-//                 }
-//             }
-//         });
-//     }
-// });
-
 chrome.action.onClicked.addListener((tab) => {
     if (extensionStatus === 'off') {
         extensionStatus = 'on';

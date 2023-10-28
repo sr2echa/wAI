@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Update Extension</title>
+    <style>
+        body {
+            width: 320px;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 15px;
+            font-size: 16px;
+        }
+        h1 {
+            font-size: 18px;
+            margin-bottom: 15px;
+        }
+        button {
+            padding: 10px 20px;
+            margin: 15px;
+            cursor: pointer;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+        #yesBtn {
+            background-color: #fff;
+            color: black;
+            border: black 2px solid;
+        }
+        #noBtn, #closeBtn {
+            background-color: #555;
+            color: white;
+            border: #555 2px solid;
+        }
+        #closeBtn {
+            display: none;
+            margin-top: 20px;
+            text-align: center;
+        }
+        a {
+            color: #007BFF;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <h1 id="mainHeading">The extension is outdated and won't continue to work</h1>
+    <p id="message">Do you want to download the updated extension?</p>
+    <button id="yesBtn">Yes</button>
+    <button id="noBtn">No</button>
+    <p id="instruction" style="display: none;">
+        Please install it manually by going to <a href="chrome://extensions/" target="_blank">chrome://extensions/</a> and delete the old extension.<br><br>
+        <samp><a href="https://github.com/sr2echa/ThottaThukiduven/edit/main/README.md#how-to-update" target="_blank">Click on this link</a> to see how to install the update manually.</samp>
+    </p>
+    <button id="closeBtn">Close</button>
+    <script src="updatePopup.js"></script>
+</body>
+</html>
