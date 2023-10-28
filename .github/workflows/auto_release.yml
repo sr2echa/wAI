@@ -16,6 +16,20 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
 
+    - name: Setup Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '14'
+
+    - name: Install dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install jq
+
+    - name: Extract version from manifest.json
+      run: echo "VERSION=$(jq -r .version manifest.json)" >> $GITHUB_ENV
+
+
     - name: Create GitHub release
       id: create_release
       uses: actions/create-release@v1
