@@ -22,11 +22,9 @@ jobs:
         sudo apt-get install -y zip jq
 
     - name: Extract Version from manifest.json
-      id: extract_version
       run: |
-        VERSION=$(jq -r .version manifest.json)
-        echo "::set-output name=version::$VERSION"
-      
+        echo "VERSION=$(jq -r .version manifest.json)" >> $GITHUB_ENV
+
     - name: Package Extension to CRX
       run: |
         zip -r ThottaThukiduven.crx . -x "*.git*" ".github/releases/*"
@@ -36,12 +34,14 @@ jobs:
 
     - name: Generate updates.xml
       run: |
-        echo '<?xml version="1.0" encoding="UTF-8"?>
+        cat <<EOF > .github/releases/updates.xml
+        <?xml version="1.0" encoding="UTF-8"?>
         <gupdate xmlns="http://www.google.com/update2/response" protocol="2.0">
           <app appid="YOUR_EXTENSION_ID">
-            <updatecheck codebase="https://github.com/sr2echa/ThottaThukiduven/raw/main/.github/releases/ThottaThukiduven.crx" version="${{ steps.extract_version.outputs.version }}" />
+            <updatecheck codebase="https://github.com/sr2echa/ThottaThukiduven/raw/main/.github/releases/ThottaThukiduven.crx" version="$VERSION" />
           </app>
-        </gupdate>' > .github/releases/updates.xml
+        </gupdate>
+        EOF
 
     - name: Commit and Push CRX and updates.xml to Repository
       run: |
@@ -53,18 +53,18 @@ jobs:
 
     - name: Create GitHub Release
       id: create_release
-      uses: actions/create-release@v1
+      uses: gh-actions/create-release@master
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        tag_name: v${{ steps.extract_version.outputs.version }}
-        release_name: Release v${{ steps.extract_version.outputs.version }}
+        tag_name: v${{ env.VERSION }}
+        release_name: Release v${{ env.VERSION }}
         body: New release of the extension.
         draft: false
         prerelease: false
 
     - name: Upload CRX to Release
-      uses: actions/upload-release-asset@v1
+      uses: gh-actions/upload-release-asset@master
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
@@ -72,4 +72,3 @@ jobs:
         asset_path: ./.github/releases/ThottaThukiduven.crx
         asset_name: ThottaThukiduven.crx
         asset_content_type: application/x-chrome-extension
-        
