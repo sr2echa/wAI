@@ -19,7 +19,13 @@ jobs:
     - name: Install Dependencies
       run: |
         sudo apt-get update
-        sudo apt-get install -y zip
+        sudo apt-get install -y zip jq
+
+    - name: Extract Version from manifest.json
+      id: extract_version
+      run: |
+        VERSION=$(jq -r .version manifest.json)
+        echo "VERSION=$VERSION" >> $GITHUB_ENV
 
     - name: Package Extension to CRX
       run: |
@@ -33,7 +39,7 @@ jobs:
         echo '<?xml version="1.0" encoding="UTF-8"?>
         <gupdate xmlns="http://www.google.com/update2/response" protocol="2.0">
           <app appid="YOUR_EXTENSION_ID">
-            <updatecheck codebase="https://github.com/sr2echa/ThottaThukiduven/raw/main/.github/releases/ThottaThukiduven.crx" version="${{ github.ref }}" />
+            <updatecheck codebase="https://github.com/sr2echa/ThottaThukiduven/raw/main/.github/releases/ThottaThukiduven.crx" version="${VERSION}" />
           </app>
         </gupdate>' > .github/releases/updates.xml
 
@@ -49,10 +55,10 @@ jobs:
       id: create_release
       uses: actions/create-release@v1
       env:
-        GITHUB_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        tag_name: ${{ github.ref }}
-        release_name: Release ${{ github.ref }}
+        tag_name: v${VERSION}
+        release_name: Release v${VERSION}
         body: New release of the extension.
         draft: false
         prerelease: false
@@ -60,7 +66,7 @@ jobs:
     - name: Upload CRX to Release
       uses: actions/upload-release-asset@v1
       env:
-        GITHUB_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
         asset_path: ./.github/releases/ThottaThukiduven.crx
