@@ -25,8 +25,8 @@ jobs:
       id: extract_version
       run: |
         VERSION=$(jq -r .version manifest.json)
-        echo "VERSION=$VERSION" >> $GITHUB_ENV
-
+        echo "::set-output name=version::$VERSION"
+      
     - name: Package Extension to CRX
       run: |
         zip -r ThottaThukiduven.crx . -x "*.git*" ".github/releases/*"
@@ -39,7 +39,7 @@ jobs:
         echo '<?xml version="1.0" encoding="UTF-8"?>
         <gupdate xmlns="http://www.google.com/update2/response" protocol="2.0">
           <app appid="YOUR_EXTENSION_ID">
-            <updatecheck codebase="https://github.com/sr2echa/ThottaThukiduven/raw/main/.github/releases/ThottaThukiduven.crx" version="${VERSION}" />
+            <updatecheck codebase="https://github.com/sr2echa/ThottaThukiduven/raw/main/.github/releases/ThottaThukiduven.crx" version="${{ steps.extract_version.outputs.version }}" />
           </app>
         </gupdate>' > .github/releases/updates.xml
 
@@ -57,8 +57,8 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        tag_name: v${VERSION}
-        release_name: Release v${VERSION}
+        tag_name: v${{ steps.extract_version.outputs.version }}
+        release_name: Release v${{ steps.extract_version.outputs.version }}
         body: New release of the extension.
         draft: false
         prerelease: false
