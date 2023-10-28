@@ -1,4 +1,4 @@
-name: Compile And Release
+name: Compile Chrome Extension
 
 on:
   push:
@@ -62,6 +62,8 @@ jobs:
         git add .github/releases/ThottaThukiduven.crx .github/releases/updates.xml
         git commit -m "Add compiled extension and updates.xml"
         git push
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
     - name: Create GitHub release
       id: create_release
@@ -72,6 +74,8 @@ jobs:
         body: Description of the release.
         draft: false
         prerelease: false
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
     - name: Upload CRX to release
       uses: actions/upload-release-asset@v1
@@ -80,4 +84,6 @@ jobs:
         asset_path: ./.github/releases/ThottaThukiduven.crx
         asset_name: ThottaThukiduven.crx
         asset_content_type: application/x-chrome-extension
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         
