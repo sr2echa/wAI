@@ -28,12 +28,11 @@ jobs:
         npm install crx
 
     - name: Extract Version from manifest.json
-      run: |
-        echo "VERSION=$(jq -r .version manifest.json)" >> $GITHUB_ENV
+      run: echo "VERSION=$(jq -r .version manifest.json)" >> $GITHUB_ENV
 
     - name: Package Extension to CRX
       run: |
-        npx crx pack ./ -o .github/releases/ThottaThukiduven.crx -p ${{ secrets.PRIVATE_KEY_PEM }}
+        npx crx pack $GITHUB_WORKSPACE -o $GITHUB_WORKSPACE/.github/releases/ThottaThukiduven.crx -p ${{ secrets.PRIVATE_KEY_PEM }}
 
     - name: Extract Extension ID from CRX
       run: |
