@@ -4,6 +4,9 @@ on:
   push:
     paths:
       - 'manifest.json'
+      
+permissions:
+  contents: write
 
 jobs:
   build:
