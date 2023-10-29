@@ -3,20 +3,35 @@ let extensionStatus = 'on';
 // Create context menus on installation
 chrome.runtime.onInstalled.addListener(() => {
     chrome.contextMenus.create({
-        id: 'typeClipboard',
-        title: 'Type Clipboard',
-        contexts: ['editable']
+        id: 'copySelectedText',
+        title: 'Copy',
+        contexts: ['selection']
     });
+
+    chrome.contextMenus.create({
+        id: 'separator1',
+        type: 'separator',
+        contexts: ['editable', 'selection']
+    });
+
     chrome.contextMenus.create({
         id: 'pasteClipboard',
         title: 'Paste Clipboard Contents by Swapping',
         contexts: ['editable']
     });
+
     chrome.contextMenus.create({
-        id: 'copySelectedText',
-        title: 'Copy',
-        contexts: ['selection']
+        id: 'typeClipboard',
+        title: 'Type Clipboard',
+        contexts: ['editable']
     });
+
+    chrome.contextMenus.create({
+        id: 'separator2',
+        type: 'separator',
+        contexts: ['editable', 'selection']
+    });
+
     if (extensionStatus === 'on') {
         chrome.contextMenus.create({
             id: 'searchWithOpenAI',
@@ -25,6 +40,7 @@ chrome.runtime.onInstalled.addListener(() => {
         });
     }
 });
+
 
 ///////////////////////
 //////////////////////
@@ -197,8 +213,8 @@ chrome.action.onClicked.addListener((tab) => {
 
 
 async function queryOpenAI(text) {
-    const API_URL = 'https://ai.fakeopen.com/v1/chat/completions';
-    const API_KEY = 'pk-this-is-a-real-free-pool-token-for-everyone'; // Replace with your key
+    const API_URL = 'https://thottathukiduven.vercel.app/api/proxy';
+    const API_KEY = 'sreecha.io'; 
 
     try {
         const response = await fetch(API_URL, {

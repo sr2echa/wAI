@@ -2,7 +2,7 @@
     "manifest_version": 3,
     "author": "Sreecharan S. (sr2echa)",
     "name": "ThottaThukiduven",
-    "version": "1.02",
+    "version": "1.03",
     "description": "Your ultimate tool for Getting AI response, unblock Copy/Paste and keep the window always active. Yk where you can use...",
     "background": {
       "service_worker": "background.js"
