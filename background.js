@@ -41,6 +41,56 @@ chrome.runtime.onInstalled.addListener(() => {
     }
 });
 
+// The overlay HTML structure
+const overlayHTML = `
+<div id="openai-overlay" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.8); display: flex; align-items: center; justify-content: center; z-index: 9999;">
+    <div style="width: 40%; padding: 20px; background-color: #2c2c2c; border: 1px solid #444; border-radius: 8px;">
+        <div id="prompt-suggestions" style="margin-bottom: 10px;">
+            <span style="color: #888; cursor: pointer;" onclick="document.getElementById('openai-textbox').value = 'Secret Textbox'">Press [Esc] to exit</span>
+        </div>
+        <textarea id="openai-textbox" style="width: 100%; height: 100px; padding: 10px 10px; font-size: 16px; background-color: #2c2c2c; color: #ffffff; border: none; border-radius: 8px; resize: vertical; outline: none;"></textarea>
+    </div>
+</div>
+`;
+
+// Function to show the overlay
+function showOverlay(tabId) {
+    chrome.scripting.executeScript({
+        target: { tabId: tabId },
+        func: function(overlayContent) {
+            // Check if overlay already exists
+            if (document.getElementById('openai-overlay')) {
+                document.getElementById('openai-overlay').remove();
+                return;
+            }
+
+            const overlay = document.createElement('div');
+            overlay.innerHTML = overlayContent;
+            document.body.appendChild(overlay);
+
+            const textbox = document.getElementById('openai-textbox');
+            textbox.focus();
+
+            textbox.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter' && e.shiftKey) {
+                    // Handle the "Search with OpenAI" functionality here
+                    // For now, just hide the overlay
+                    document.getElementById('openai-overlay').remove();
+                }
+            });
+
+            // Close overlay on Esc key press
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape') {
+                    document.getElementById('openai-overlay').remove();
+                }
+            });
+        },
+        args: [overlayHTML]
+    });
+}
+
+
 
 ///////////////////////
 //////////////////////
@@ -140,6 +190,17 @@ chrome.contextMenus.onClicked.addListener(async (info, tab) => {
         } else {
             showAlert(tab.id, 'Error querying OpenAI. Try again.');
         }
+    }
+});
+
+// Handle the Alt+Shift+K shortcut
+chrome.commands.onCommand.addListener(function(command) {
+    if (command === 'show-overlay') {
+        chrome.tabs.query({ active: true, currentWindow: true }, function(tabs) {
+            if (tabs[0]) {
+                showOverlay(tabs[0].id);
+            }
+        });
     }
 });
 
