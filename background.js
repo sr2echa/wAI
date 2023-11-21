@@ -38,6 +38,11 @@ chrome.runtime.onInstalled.addListener(() => {
             title: 'Search with OpenAI',
             contexts: ['selection']
         });
+        chrome.contextMenus.create({
+            id: 'solveMCQ',
+            title: 'Solve MCQ',
+            contexts: ['selection']
+        });
     }
 });
 
@@ -186,9 +191,18 @@ chrome.contextMenus.onClicked.addListener(async (info, tab) => {
         const response = await queryOpenAI(info.selectionText);
         if (response) {
             copyToClipboard(response);
-            showAlert(tab.id, 'Response from OpenAI copied to clipboard!');
+            showToast(tab.id, 'Successful!');
         } else {
-            showAlert(tab.id, 'Error querying OpenAI. Try again.');
+            showToast(tab.id, 'Error. Try again after 30s.',true);
+        }
+    }
+
+    if (info.menuItemId === 'solveMCQ' && info.selectionText) {
+        const response = await queryOpenAI(info.selectionText, true);
+        if (response) {
+            showMCQToast(tab.id, response);
+        } else {
+            showToast(tab.id, 'Error. Try again.', true);
         }
     }
 });
@@ -273,10 +287,12 @@ chrome.action.onClicked.addListener((tab) => {
 });
 
 
-async function queryOpenAI(text) {
+async function queryOpenAI(text, isMCQ = false) {
     const API_URL = 'https://thottathukiduven.vercel.app/api/proxy';
-    const API_KEY = 'sreecha.io'; 
-
+    const API_KEY = 'part-of-nwo-schematics'; 
+    if (isMCQ) {
+        text += "\nThis is a MCQ question, Just give the option number and the correct answer option alone. No need any explanation. The output should be in this format : <option no.>. <answer option>";
+    }
     try {
         const response = await fetch(API_URL, {
             method: 'POST',
@@ -285,7 +301,7 @@ async function queryOpenAI(text) {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                model: 'gpt-3.5-turbo',
+                model: 'gpt-4',
                 messages: [
                     { role: "system", content: "You are a helpful assistant." },
                     { role: "user", content: text }
@@ -325,6 +341,87 @@ function copyToClipboard(text) {
         }
     });
 }
+
+function showToast(tabId, message, isError = false) {
+    chrome.scripting.executeScript({
+        target: { tabId: tabId },
+        func: function(msg, isError) {
+            const toast = document.createElement('div');
+            toast.textContent = msg;
+            toast.style.position = 'fixed';
+            toast.style.bottom = '20px';
+            toast.style.right = '20px';
+            toast.style.backgroundColor = 'black';
+            toast.style.color = isError ? 'red' : 'white';
+            toast.style.padding = '10px';
+            toast.style.borderRadius = '5px';
+            toast.style.zIndex = 1000;
+
+            const closeBtn = document.createElement('span');
+            closeBtn.textContent = '‎ ‎ ‎ ◉';
+            closeBtn.style.float = 'right';
+            closeBtn.style.cursor = 'pointer';
+            closeBtn.onclick = function() {
+                toast.remove();
+            };
+            toast.appendChild(closeBtn);
+
+            document.body.appendChild(toast);
+
+            setTimeout(() => {
+                toast.remove();
+            }, 5000);
+        },
+        args: [message, isError]
+    });
+}
+
+function showMCQToast(tabId, message) {
+    chrome.scripting.executeScript({
+        target: { tabId: tabId },
+        func: function(msg) {
+            // Parse the message to separate option number and answer
+            const [optionNumber, ...optionAnswer] = msg.split(' ');
+            const formattedMsg = `<b>${optionNumber}</b>‎ ‎ ${optionAnswer.join('‎ ')}`;
+
+            const toast = document.createElement('div');
+            toast.innerHTML = formattedMsg; 
+            toast.style.position = 'fixed';
+            toast.style.bottom = '10px';
+            toast.style.left = '50%';
+            toast.style.transform = 'translateX(-50%)';
+            toast.style.backgroundColor = 'black';
+            toast.style.color = 'white';
+            toast.style.padding = '15px';
+            toast.style.borderRadius = '5px';
+            toast.style.zIndex = 1000;
+            toast.style.fontSize = '16px';
+            toast.style.textAlign = 'center';
+            toast.style.maxWidth = '80%';
+
+            // Add close button
+            const closeBtn = document.createElement('span');
+            closeBtn.innerHTML = '&times;';
+            closeBtn.style.float = 'right';
+            closeBtn.style.cursor = 'pointer';
+            closeBtn.style.marginLeft = '10px';
+            closeBtn.onclick = function() {
+                toast.remove();
+            };
+            toast.appendChild(closeBtn);
+
+            document.body.appendChild(toast);
+
+            // Set timeout for auto-dismiss
+            setTimeout(() => {
+                toast.remove();
+            }, 5000);
+        },
+        args: [message]
+    });
+}
+
+
 
 function showAlert(tabId, message) {
     chrome.scripting.executeScript({
