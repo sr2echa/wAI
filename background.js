@@ -187,24 +187,35 @@ chrome.contextMenus.onClicked.addListener(async (info, tab) => {
         });
     }
 
+    // if (info.menuItemId === 'searchWithOpenAI' && info.selectionText) {
+    //     const response = await queryOpenAI(info.selectionText);
+    //     if (response) {
+    //         copyToClipboard(response);
+    //         showToast(tab.id, 'Successful!');
+    //     } else {
+    //         showToast(tab.id, 'Error. Try again after 30s.',true);
+    //     }
+    // }
+
+    // if (info.menuItemId === 'solveMCQ' && info.selectionText) {
+    //     const response = await queryOpenAI(info.selectionText, true);
+    //     if (response) {
+    //         showMCQToast(tab.id, response);
+    //     } else {
+    //         showToast(tab.id, 'Error. Try again.', true);
+    //     }
+    // }
+
     if (info.menuItemId === 'searchWithOpenAI' && info.selectionText) {
         const response = await queryOpenAI(info.selectionText);
-        if (response) {
-            copyToClipboard(response);
-            showToast(tab.id, 'Successful!');
-        } else {
-            showToast(tab.id, 'Error. Try again after 30s.',true);
-        }
+        handleQueryResponse(response, tab.id);
     }
 
     if (info.menuItemId === 'solveMCQ' && info.selectionText) {
         const response = await queryOpenAI(info.selectionText, true);
-        if (response) {
-            showMCQToast(tab.id, response);
-        } else {
-            showToast(tab.id, 'Error. Try again.', true);
-        }
+        handleQueryResponse(response, tab.id, true);
     }
+
 });
 
 // Handle the Alt+Shift+K shortcut
@@ -217,6 +228,41 @@ chrome.commands.onCommand.addListener(function(command) {
         });
     }
 });
+
+// Command listener for Alt+Shift+Z/X
+chrome.commands.onCommand.addListener((command, tab) => {
+    if (command === 'search-with-openai' || command === 'search-mcq') {
+        chrome.scripting.executeScript({
+            target: { tabId: tab.id },
+            function: getSelectedText
+        }, async (selection) => {
+            if (selection[0]) {
+                const isMCQ = command === 'search-mcq';
+                const response = await queryOpenAI(selection[0].result, isMCQ);
+                handleQueryResponse(response, tab.id, isMCQ);
+            }
+        });
+    }
+});
+
+// Function to get the selected text in the current tab
+function getSelectedText() {
+    return window.getSelection().toString();
+}
+
+// Function to handle the response from queryOpenAI
+function handleQueryResponse(response, tabId, isMCQ = false) {
+    if (response) {
+        if (isMCQ) {
+            showMCQToast(tabId, response);
+        } else {
+            copyToClipboard(response);
+            showToast(tabId, 'Successful!');
+        }
+    } else {
+        showToast(tabId, 'Error. Try again after 30s.', true);
+    }
+}
 
 // Toggle extension functionality on icon click
 chrome.action.onClicked.addListener((tab) => {

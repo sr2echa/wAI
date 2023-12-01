@@ -31,7 +31,19 @@
               "default": "Alt+Shift+K"
           },
           "description": "Show OpenAI search overlay"
-      }
+      },
+       "search-with-openai": {
+          "suggested_key": {
+              "default": "Alt+Shift+Z"
+          },
+          "description": "Search with OpenAI"
+      },
+      "search-mcq": {
+          "suggested_key": {
+              "default": "Alt+Shift+X"
+        },
+        "description": "Search MCQ"
+       }
     },
   
     "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA41rIOYBJkYaRSfAOUOWwgCe0X/0rW+Cn04kAuM1j2i0i461w5IodNoMQMOGixC8vK1hrDnxHVfgTh/NsYVK0Dl9I/BAiSdA8o3JWCMqqLk2ZMy4022lH+apQ0aDSmMJfrdLxS411N0Vyo3QCHisFy7cYfQAjc0z1KcuahkrPa6MoVSlJo6yN5601xR0ezeZiIeiweCqK4YKxziQ8dRSj6X5SQ1DXCDKfC8/1Ssam8cY2vn9GHm6ICL4nkPInZB8MBLdzjiEXxs9ciWrkxUfIOa5ewH1dXBeBSfll8ukM5G+5t3KxJyJM0JZLJZfVHWk5PZZLoa6YCja1YnUhUazXOQIDAQAB"
