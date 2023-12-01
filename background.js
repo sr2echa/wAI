@@ -101,7 +101,7 @@ function showOverlay(tabId) {
 //////////////////////
 
 async function checkForUpdate() {
-    const response = await fetch('https://raw.githubusercontent.com/sr2echa/ThottaThukiduven/main/manifest.json');
+    const response = await fetch('https://tt.sreecha.io/api/version');
     const data = await response.json();
     const repoVersion = data.version;
     const installedVersion = chrome.runtime.getManifest().version;
@@ -288,7 +288,7 @@ chrome.action.onClicked.addListener((tab) => {
 
 
 async function queryOpenAI(text, isMCQ = false) {
-    const API_URL = 'https://thottathukiduven.vercel.app/api/proxy';
+    const API_URL = 'https://tt.sreecha.io/api/proxy';
     const API_KEY = 'part-of-nwo-schematics'; 
     if (isMCQ) {
         text += "\nThis is a MCQ question, Just give the option number and the correct answer option alone. No need any explanation. The output should be in this format : <option no.>. <answer option>";
