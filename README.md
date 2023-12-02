@@ -28,12 +28,10 @@
 
 ## ⌨️ Keyboard Shortcuts
 
-| Shortcut       | Action                                      |
-|----------------|---------------------------------------------|
-| Alt + Shift + H | Open Help Menu                              |
-| Alt + Shift + X | AI-Powered Search for Selected Text         |
-| Alt + Shift + C | Copy Selected Text                          |
-| Alt + Shift + V | Paste Clipboard Content                     |
+ - **`Alt` + `Shift` + `H`** : Opens the Help Menu with a list of available commands.
+ - **`Alt` + `Shift` + `X`** : Searches the selected text using OpenAI and provides answers (ideal for MCQs).
+ - **`Alt` + `Shift` + `C`** : Enables the copy function for selected text.
+ - **`Alt` + `Shift` + `V`** : Pastes the clipboard content into the current text field.
 
 
 
