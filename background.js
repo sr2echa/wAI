@@ -350,7 +350,7 @@ function showHelpToast() {
 
     const overlay = document.createElement('div');
     overlay.id = overlayId;
-    overlay.innerHTML = `<img src="https://i.imgur.com/Xej1YU1.png" style="width: 300px; height: auto;">`;
+    overlay.innerHTML = `<img src="https://i.imgur.com/qEQuh64.png" style="width: 250px; height: auto;">`;
     overlay.style.cssText = 'position: fixed; bottom: 20px; right: 20px; z-index: 9999;';
 
     document.body.appendChild(overlay);
