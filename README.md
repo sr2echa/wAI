@@ -1,43 +1,52 @@
-<p align = "center">
-<img src="https://github.com/sr2echa/ThottaThukiduven/assets/65058816/10a113af-ca11-46fb-af95-c1175f774c80" width = "256px" align = "center">
-
-
-<h1 align = "center">ThottaThukiduven</h1>
-<h3 align = "center">Your ultimate tool for Getting AI response, unblock Copy/Paste and keep the window always active. Yk where you can use...</h3>
-
+<p>
+  <img src="https://github.com/sr2echa/ThottaThukiduven/assets/65058816/10a113af-ca11-46fb-af95-c1175f774c80" width="128px" align="center">
 </p>
 
-# Features
-https://github.com/sr2echa/ThottaThukiduven/assets/65058816/eccdbf2e-c16a-4224-b5a7-86ad359d42ef
-
-https://github.com/sr2echa/ThottaThukiduven/assets/65058816/aeb6fab0-afc7-4a91-97d4-94c756dad305
-
-https://github.com/sr2echa/ThottaThukiduven/assets/65058816/995bf52e-2f8a-4767-ae02-31f1f9894c7f
+<samp>
+<h1>Your Ultimate Extension to Regain your Browser Freedom and become Limitless... 🛸 </h1>
+</samp>
 
 
-# How to Install
-https://github.com/sr2echa/ThottaThukiduven/assets/65058816/cab3b2d2-4dd3-4c2b-a1f5-a49b2f299966
+**`ThottaThukiduven`** is a Chrome extension crafted to empower students during online proctored examinations. It discreetly circumvents common test-taking restrictions like disabled copy-pasting, tab switching, and more. With advanced AI integration, it offers real-time assistance for queries and multiple-choice questions, all while maintaining a low profile to avoid detection.
 
-# How to Update
-https://github.com/sr2echa/ThottaThukiduven/assets/65058816/ee8273fa-4ab4-41d4-9dbd-aed8204f47ff
-
+<samp>
+  
 > [!NOTE]
-> __Currently only 4 Keybinds are supported__ : <br>
-> **Alt + Shift + H**   - Help Menu (not all cmds in help menu are configure yet) <br>
-> **Alt + Shift + X**   - Search MCQ (select the question with options before pressing the keybind) <br>
-> **Alt + Shift + C**   - Copy <br>
-> **Alt + Shift + V**   - Paste (Paste by swapping) <br>
+> This is a free & opensource project available for everyone. Currently everyone gets access to GPT 3.5 Turbo LLM. But maintaining the backand and API has a significant cost. Thus to support this project, considering looking into [CONTRIBUTING.MD](CONTRIBUTING.MD)
+>
+> To learn How to Install/Update, go to [help.md](Help.md)
+</samp>
+
+## 🌟 Key Features
+
+- **`Unrestricted Copy/Paste`**: Effortlessly re-enable copy and paste in restricted test environments.
+- **`Seamless Tab Navigation`**: Navigate between tabs freely, even when restricted by the testing platform.
+- **`AI-Powered Search`**: Instantly search and receive AI-generated responses to your queries - and store it in your clipboard!.
+- **`MCQ Solver`**: Get assistance in solving multiple-choice questions with AI-powered suggestions.
+- **`Stealth Operation`**: Designed to operate under the radar, avoiding detection in proctored settings.
+- **`Intuitive Shortcuts`**: Quick and easy access to features through keyboard shortcuts.
+
+## ⌨️ Keyboard Shortcuts
+
+| Shortcut       | Action                                      |
+|----------------|---------------------------------------------|
+| Alt + Shift + H | Open Help Menu                              |
+| Alt + Shift + X | AI-Powered Search for Selected Text         |
+| Alt + Shift + C | Copy Selected Text                          |
+| Alt + Shift + V | Paste Clipboard Content                     |
 
 
-## ✔️ To-Do
-- [x] Auto Update feature
-- [ ] Renable Overlay [Disabled Overlay temperiorly (Alt+Shift+K)]
-- [ ] Configure 4+ keybinds in manifest / Or create a menu to choose option
-- [ ] ~~Change the api for the LLM~~
-- [ ] Upgrade UI (suprise!!)
-- [ ] Scale?
 
+
+## 🔮 Future Roadmap and Enhancements
+
+- [x] Auto-update functionality for seamless upgrades.
+- [ ] Reintroduction of the Overlay feature (currently under improvement).
+- [ ] Expansion of keyboard shortcuts for enhanced accessibility.
+- [ ] UI/UX overhaul for a more engaging user experience.
+- [ ] Scaling the extension for broader applications and use-cases.
 
 ---
 
-Licensed by [©️ BSD 3-Clause License](License.md)
+<samp> 📜 Licensed under [BSD 3-Clause License](License.md) </samp>
+
