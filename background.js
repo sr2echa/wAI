@@ -229,9 +229,11 @@ chrome.commands.onCommand.addListener(function(command) {
     }
 });
 
-// Command listener for Alt+Shift+Z/X
+
 chrome.commands.onCommand.addListener((command, tab) => {
-    if (command === 'search-with-openai' || command === 'search-mcq') {
+    // Command listener for Alt+Shift+Z/X
+    //if (command === 'search-with-openai' || command === 'search-mcq') {
+    if (command === 'search-mcq') {
         chrome.scripting.executeScript({
             target: { tabId: tab.id },
             function: getSelectedText
@@ -243,7 +245,129 @@ chrome.commands.onCommand.addListener((command, tab) => {
             }
         });
     }
+
+    // Command listener for Alt+Shift+C (custom copy)
+    if (command === 'custom-copy') {
+        chrome.scripting.executeScript({
+            target: { tabId: tab.id },
+            function: () => {
+                const selectedText = window.getSelection().toString();
+                const textarea = document.createElement('textarea');
+                textarea.textContent = selectedText;
+                document.body.appendChild(textarea);
+                textarea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textarea);
+            }
+        });
+    }
+
+    // Command listener for Alt+Shift+V (custom paste)
+    if (command === 'custom-paste') {
+        chrome.scripting.executeScript({
+            target: {tabId: tab.id},
+            func: async () => {
+                const clipboardText = await navigator.clipboard.readText();
+                document.activeElement.value = clipboardText;
+                document.activeElement.dispatchEvent(new Event('input', {bubbles: true}));
+            }
+        });
+    }
+
+    // Command listener for Alt+Shift+H (HELP)
+    if (command === 'show-help') {
+        chrome.scripting.executeScript({
+            target: { tabId: tab.id },
+            function: showHelpToast
+        });
+    }
 });
+
+
+// chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+//     switch (message.command) {
+//         case 'show-overlay':
+//             showOverlay(sender.tab.id);
+//             break;
+//         case 'search-with-openai':
+//             chrome.scripting.executeScript({
+//                 target: { tabId: sender.tab.id },
+//                 function: getSelectedText
+//             }, async (selection) => {
+//                 if (selection[0]) {
+//                     const response = await queryOpenAI(selection[0].result);
+//                     handleQueryResponse(response, sender.tab.id);
+//                 }
+//             });
+//             break;
+//         case 'search-mcq':
+//             chrome.scripting.executeScript({
+//                 target: { tabId: sender.tab.id },
+//                 function: getSelectedText
+//             }, async (selection) => {
+//                 if (selection[0]) {
+//                     const response = await queryOpenAI(selection[0].result, true);
+//                     handleQueryResponse(response, sender.tab.id, true);
+//                 }
+//             });
+//             break;
+//         case 'custom-copy':
+//             chrome.scripting.executeScript({
+//                 target: { tabId: sender.tab.id },
+//                 function: () => {
+//                     const selection = window.getSelection().toString();
+//                     if (selection) {
+//                         copyToClipboard(selection);
+//                     }
+//                 }
+//             });
+//             break;
+//         case 'custom-paste':
+//             chrome.scripting.executeScript({
+//                 target: {tabId: sender.tab.id},
+//                 func: async () => {
+//                     const clipboardText = await navigator.clipboard.readText();
+//                     document.activeElement.value = clipboardText;
+//                     document.activeElement.dispatchEvent(new Event('input', {bubbles: true}));
+//                 }
+//             });
+//             break;
+//         case 'show-help':
+//             showHelpToast(sender.tab.id);
+//             break;
+//         // Add more cases as needed
+//     }
+// });
+
+
+// showHelpToast function
+function showHelpToast() {
+    const overlayId = 'image-toast-overlay';
+    if (document.getElementById(overlayId)) {
+        document.getElementById(overlayId).remove();
+        return;
+    }
+
+    const overlay = document.createElement('div');
+    overlay.id = overlayId;
+    overlay.innerHTML = `<img src="https://i.imgur.com/Xej1YU1.png" style="width: 300px; height: auto;">`;
+    overlay.style.cssText = 'position: fixed; bottom: 20px; right: 20px; z-index: 9999;';
+
+    document.body.appendChild(overlay);
+
+    setTimeout(() => {
+        if (document.getElementById(overlayId)) {
+            document.getElementById(overlayId).remove();
+        }
+    }, 5000);
+
+    document.addEventListener('keydown', function onKeyPress(e) {
+        if (e.key === 'Escape' && document.getElementById(overlayId)) {
+            document.getElementById(overlayId).remove();
+            document.removeEventListener('keydown', onKeyPress);
+        }
+    });
+}
 
 // Function to get the selected text in the current tab
 function getSelectedText() {
@@ -337,7 +461,7 @@ async function queryOpenAI(text, isMCQ = false) {
     const API_URL = 'https://tt.sreecha.io/api/proxy';
     const API_KEY = 'part-of-nwo-schematics'; 
     if (isMCQ) {
-        text += "\nThis is a MCQ question, Just give the option number and the correct answer option alone. No need any explanation. The output should be in this format : <option no.>. <answer option>";
+        text += "\nThis is a MCQ question, Just give the option number and the correct answer option alone. No need any explanation. The output should be in this format : <option no.>. <answer option>. If you think the question is ot an mcq, just only say `Not an MCQ`.";
     }
     try {
         const response = await fetch(API_URL, {
@@ -347,7 +471,7 @@ async function queryOpenAI(text, isMCQ = false) {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                model: 'gpt-4',
+                model: 'gpt-4-1106-preview',
                 messages: [
                     { role: "system", content: "You are a helpful assistant." },
                     { role: "user", content: text }
