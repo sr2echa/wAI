@@ -1,5 +1,13 @@
 let extensionStatus = 'on';
 
+chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
+    if (tab.url.startsWith("chrome://")) {
+        // Set extension status to 'off' or prevent script injection
+        extensionStatus = 'off';
+        chrome.action.setIcon({ path: "icons/off.png", tabId: tabId });
+    }
+});
+
 // Create context menus on installation
 chrome.runtime.onInstalled.addListener(() => {
     chrome.contextMenus.create({
@@ -350,7 +358,7 @@ function showHelpToast() {
 
     const overlay = document.createElement('div');
     overlay.id = overlayId;
-    overlay.innerHTML = `<img src="https://i.imgur.com/qEQuh64.png" style="width: 250px; height: auto;">`;
+    overlay.innerHTML = `<img src="https://i.imgur.com/qEQuh64.png" style="width: 255px; height: auto;">`;
     overlay.style.cssText = 'position: fixed; bottom: 20px; right: 20px; z-index: 9999;';
 
     document.body.appendChild(overlay);
