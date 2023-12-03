@@ -38,8 +38,7 @@
 - **`Stealth Operation`**: Designed to operate under the radar, avoiding detection in proctored settings.
 - **`Intuitive Shortcuts`**: Quick and easy access to features through keyboard shortcuts.
 
-> [!NOTE]
-> You can view the features in action @ [features.md](Features.md)
+> **NOTE:** You can view the features in action @ [features.md](Features.md)
 
 ## ⌨️ Keyboard Shortcuts
 
