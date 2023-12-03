@@ -1,7 +1,19 @@
 <p>
   <img src="https://github.com/sr2echa/ThottaThukiduven/assets/65058816/10a113af-ca11-46fb-af95-c1175f774c80" width="128px" align="center">
 </p>
+<p>
+    <strong>ThottaThukiduven</strong></br>
+    <strong>Ultimate Extension to regain Browser Freedom</strong>
+</p>
+<p>
+  <a href="#your-ultimate-extension-to-regain-your-browser-freedom-and-become-limitless--">Overview</a>
+  •
+  <a href="https://discord.gg/PHMkeU3k2g">Support Server</a>
+  •
+  <a href="License.md">License</a>
+</p>
 
+<br>
 <samp>
 <h1>Your Ultimate Extension to Regain your Browser Freedom and become Limitless... 🛸 </h1>
 </samp>
@@ -11,7 +23,7 @@
 
 <samp>
   
-> [!NOTE]
+> [!IMPORTANT]
 > This is a free & opensource project available for everyone. Currently everyone gets access to GPT 3.5 Turbo LLM. But maintaining the backand and API has a significant cost. Thus to support this project, considering looking into [CONTRIBUTING.MD](CONTRIBUTING.MD)
 >
 > To learn How to Install/Update, go to [help.md](Help.md)
@@ -26,14 +38,15 @@
 - **`Stealth Operation`**: Designed to operate under the radar, avoiding detection in proctored settings.
 - **`Intuitive Shortcuts`**: Quick and easy access to features through keyboard shortcuts.
 
+> [!NOTE]
+> You can view the features in action @ [features.md](Features.md)
+
 ## ⌨️ Keyboard Shortcuts
 
  - **`Alt` + `Shift` + `H`** : Opens the Help Menu with a list of available commands.
  - **`Alt` + `Shift` + `X`** : Searches the selected text using OpenAI and provides answers (ideal for MCQs).
  - **`Alt` + `Shift` + `C`** : Enables the copy function for selected text.
  - **`Alt` + `Shift` + `V`** : Pastes the clipboard content into the current text field.
-
-
 
 
 ## 🔮 Future Roadmap and Enhancements
@@ -43,6 +56,7 @@
 - [ ] Expansion of keyboard shortcuts for enhanced accessibility.
 - [ ] UI/UX overhaul for a more engaging user experience.
 - [ ] Scaling the extension for broader applications and use-cases.
+- [ ] **Pro version... 👀** _stay tuned for that_
 
 ---
 
