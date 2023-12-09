@@ -10,7 +10,7 @@
   •
   <a href="https://discord.gg/PHMkeU3k2g">Support Server</a>
   •
-  <a href="License.md">License</a>
+  <a href="LICENSE.md">License</a>
 </p>
 
 <br>
@@ -24,9 +24,9 @@
 <samp>
   
 > [!NOTE]
-> This is a free & opensource project available for everyone. Currently everyone gets access to GPT-3.5-Turbo LLM. But maintaining the backand and API has a significant cost. Thus to support this project, considering looking into [CONTRIBUTING.MD](./CONTRIBUTING.md)
+> This is a free & opensource project available for everyone. Currently everyone gets access to GPT-3.5-Turbo LLM. But maintaining the backand and API has a significant cost. Thus to support this project, considering looking into [CONTRIBUTING.md](CONTRIBUTING.md)
 >
-> **To learn How to Install/Update**, go to [help.md](Help.md)
+> **To learn How to Install/Update**, go to [HELP.md](HELP.md)
 </samp>
 
 ## 🌟 Key Features
@@ -38,7 +38,8 @@
 - **`Stealth Operation`**: Designed to operate under the radar, avoiding detection in proctored settings.
 - **`Intuitive Shortcuts`**: Quick and easy access to features through keyboard shortcuts.
 
-> **NOTE:** You can view the features in action @ [features.md](Features.md)
+> [!TIP]
+> <samp> You can view the features in action @ [FEATURES.md](FEATURES.md) </samp>
 
 ## ⌨️ Keyboard Shortcuts
 
@@ -59,5 +60,5 @@
 
 ---
 
-<samp> 📜 Licensed under [BSD 3-Clause License](License.md) </samp>
+<samp> 📜 Licensed under [BSD 3-Clause License](LICENSE.md) </samp>
 
