@@ -24,7 +24,7 @@
 <samp>
   
 > [!NOTE]
-> This is a free & opensource project available for everyone. Currently everyone gets access to GPT-3.5-Turbo LLM. But maintaining the backand and API has a significant cost. Thus to support this project, considering looking into [CONTRIBUTING.MD](CONTRIBUTING.MD)
+> This is a free & opensource project available for everyone. Currently everyone gets access to GPT-3.5-Turbo LLM. But maintaining the backand and API has a significant cost. Thus to support this project, considering looking into [CONTRIBUTING.MD](./CONTRIBUTING.md)
 >
 > **To learn How to Install/Update**, go to [help.md](Help.md)
 </samp>
