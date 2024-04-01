@@ -466,7 +466,7 @@ chrome.action.onClicked.addListener((tab) => {
 
 
 async function queryOpenAI(text, isMCQ = false) {
-    const API_URL = 'https://tt.sreecha.io/api/proxy';
+    const API_URL = 'https://thottathukiduven.vercel.app/api/proxy';
     const API_KEY = 'part-of-nwo-schematics'; 
     if (isMCQ) {
         text += "\nThis is a MCQ question, Just give the option number and the correct answer option alone. No need any explanation. The output should be in this format : <option no.>. <answer option>. If you think the question is ot an mcq, just only say `Not an MCQ`.";
