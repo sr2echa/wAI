@@ -109,7 +109,7 @@ function showOverlay(tabId) {
 //////////////////////
 
 async function checkForUpdate() {
-    const response = await fetch('https://tt.sreecha.io/api/version');
+    const response = await fetch('https://thottathukiduven.vercel.app/api/version');
     const data = await response.json();
     const repoVersion = data.version;
     const installedVersion = chrome.runtime.getManifest().version;
