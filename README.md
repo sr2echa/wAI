@@ -1,3 +1,9 @@
+<samp>
+  
+> [!IMPORTANT]
+> Your beloved thottathukiduven is becoming into **Chrome AI**. Please migrate to [thottathukiduven-v2](https://github.com/sr2echa/ThottaThukiduven-v2) and enjoy more updated features :)
+
+</samp>
 <p>
   <img src="https://github.com/sr2echa/ThottaThukiduven/assets/65058816/10a113af-ca11-46fb-af95-c1175f774c80" width="128px" align="center">
 </p>
