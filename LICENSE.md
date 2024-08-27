@@ -3,7 +3,7 @@
                                             BSD 3-Clause License
 
 ```
-**Copyright (c) 2023, Sreecharan S. (sr2echa)**
+**Copyright (c) 2024, Sreecharan S. (sr2echa)**
 
 
 <samp>
