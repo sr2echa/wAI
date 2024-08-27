@@ -1,7 +1,7 @@
 <samp>
   
 > [!IMPORTANT]
-> Your beloved thottathukiduven is becoming into **Chrome AI**. Please migrate to [thottathukiduven-v2](https://github.com/sr2echa/ThottaThukiduven-v2) and enjoy more updated features :)
+> Your beloved thottathukiduven is becoming into **wAI**. Please migrate to [thottathukiduven-v2](https://github.com/sr2echa/ThottaThukiduven-v2) and enjoy more updated features :)
 
 </samp>
 <p>
