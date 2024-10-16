@@ -1,58 +1,67 @@
 {
-    "manifest_version": 3,
-    "author": "Sreecharan S. (sr2echa)",
-    "name": "ThottaThukiduven",
-    "version": "1.16",
-    "description": "Your ultimate tool for Getting AI response, unblock Copy/Paste and keep the window always active. Yk where you can use...",
-    "background": {
-      "service_worker": "background.js"
-    },
-    "host_permissions": [
-      "*://*/*"
-    ],
-    "permissions": ["contextMenus", "clipboardWrite", "clipboardRead", "storage", "tabs", "activeTab", "scripting", "downloads", "windows"],
-    "action": {
-      "default_icon": {
-        "128": "icons/off.png"
-      }
-    },
-    "icons": {
-      "128": "icons/logo.png"
-    },
-    "content_scripts": [
-      {
-        "matches": ["<all_urls>"],
-        "exclude_matches": ["*://*.discord.com/*", "*://*.figma.com/*"],
-        "js": ["data/inject/rightclickmenu.js", "data/inject/isolated.js", "data/inject/content.js", "data/inject/main.js"]
-      }
-    ],
-    "commands": {
+  "manifest_version": 3,
+  "author": "Sreecharan S. (sr2echa)",
+  "name": "ThottaThukiduven",
+  "version": "1.16",
+  "description": "Your ultimate tool for Getting AI response, unblock Copy/Paste and keep the window always active. Yk where you can use...",
+  "background": {
+    "service_worker": "background.js"
+  },
+  "host_permissions": ["*://*/*"],
+  "permissions": [
+    "contextMenus",
+    "clipboardWrite",
+    "clipboardRead",
+    "storage",
+    "tabs",
+    "activeTab",
+    "scripting",
+    "downloads",
+    "windows"
+  ],
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "128": "icons/off.png"
+    }
+  },
+  "icons": {
+    "128": "icons/logo.png"
+  },
 
-	"search-mcq": {
-            "suggested_key": {
-                "default": "Alt+Shift+X"
-            },
-            "description": "Solve MCQs"
-        },
-	"custom-copy": {
-            "suggested_key": {
-                "default": "Alt+Shift+C"
-            },
-            "description": "Custom Copy"
-        },
-	"custom-paste": {
-            "suggested_key": {
-                "default": "Alt+Shift+V"
-            },
-            "description": "Custom Paste"
-        },
-	"show-help": {
-            "suggested_key": {
-                "default": "Alt+Shift+H"
-            },
-            "description": "Show Help Menu"
-        }
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content.js"]
+    }
+  ],
+
+  "commands": {
+    "search-mcq": {
+      "suggested_key": {
+        "default": "Alt+Shift+X"
+      },
+      "description": "Solve MCQs"
     },
-  
-    "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA41rIOYBJkYaRSfAOUOWwgCe0X/0rW+Cn04kAuM1j2i0i461w5IodNoMQMOGixC8vK1hrDnxHVfgTh/NsYVK0Dl9I/BAiSdA8o3JWCMqqLk2ZMy4022lH+apQ0aDSmMJfrdLxS411N0Vyo3QCHisFy7cYfQAjc0z1KcuahkrPa6MoVSlJo6yN5601xR0ezeZiIeiweCqK4YKxziQ8dRSj6X5SQ1DXCDKfC8/1Ssam8cY2vn9GHm6ICL4nkPInZB8MBLdzjiEXxs9ciWrkxUfIOa5ewH1dXBeBSfll8ukM5G+5t3KxJyJM0JZLJZfVHWk5PZZLoa6YCja1YnUhUazXOQIDAQAB"
+    "custom-copy": {
+      "suggested_key": {
+        "default": "Alt+Shift+C"
+      },
+      "description": "Custom Copy"
+    },
+    "custom-paste": {
+      "suggested_key": {
+        "default": "Alt+Shift+V"
+      },
+      "description": "Custom Paste"
+    },
+    "show-overlay": {
+      "suggested_key": {
+        "default": "Alt+K"
+      },
+      "description": "Show wAI menu"
+    }
+  },
+
+  "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA41rIOYBJkYaRSfAOUOWwgCe0X/0rW+Cn04kAuM1j2i0i461w5IodNoMQMOGixC8vK1hrDnxHVfgTh/NsYVK0Dl9I/BAiSdA8o3JWCMqqLk2ZMy4022lH+apQ0aDSmMJfrdLxS411N0Vyo3QCHisFy7cYfQAjc0z1KcuahkrPa6MoVSlJo6yN5601xR0ezeZiIeiweCqK4YKxziQ8dRSj6X5SQ1DXCDKfC8/1Ssam8cY2vn9GHm6ICL4nkPInZB8MBLdzjiEXxs9ciWrkxUfIOa5ewH1dXBeBSfll8ukM5G+5t3KxJyJM0JZLJZfVHWk5PZZLoa6YCja1YnUhUazXOQIDAQAB"
 }
